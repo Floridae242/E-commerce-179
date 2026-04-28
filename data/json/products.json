@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Classic Running Shoes",
+    "price": 99.00,
+    "image_url": "images/card-item1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Sport Sneakers Pro",
+    "price": 129.00,
+    "image_url": "images/card-item2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Urban Street Runner",
+    "price": 85.00,
+    "image_url": "images/card-item3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Lightweight Trail Shoes",
+    "price": 110.00,
+    "image_url": "images/card-item4.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Premium Comfort Walk",
+    "price": 145.00,
+    "image_url": "images/card-item5.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Daily Casual Sneakers",
+    "price": 75.00,
+    "image_url": "images/card-item6.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Flex Motion Runner",
+    "price": 119.00,
+    "image_url": "images/card-item7.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Air Boost Max",
+    "price": 159.00,
+    "image_url": "images/card-item8.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Retro Classic Kicks",
+    "price": 89.00,
+    "image_url": "images/card-item9.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Speed Elite Racer",
+    "price": 175.00,
+    "image_url": "images/card-item10.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Cloud Step Lite",
+    "price": 95.00,
+    "image_url": "images/card-item1.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Marathon Pro X",
+    "price": 199.00,
+    "image_url": "images/card-item2.jpg"
+  },
+  {
+    "id": 13,
+    "name": "Heritage Canvas Low",
+    "price": 65.00,
+    "image_url": "images/card-item3.jpg"
+  },
+  {
+    "id": 14,
+    "name": "All-Terrain Hiker",
+    "price": 135.00,
+    "image_url": "images/card-item4.jpg"
+  },
+  {
+    "id": 15,
+    "name": "Minimalist Slide",
+    "price": 55.00,
+    "image_url": "images/card-item5.jpg"
+  },
+  {
+    "id": 16,
+    "name": "Power Gym Trainer",
+    "price": 115.00,
+    "image_url": "images/card-item6.jpg"
+  },
+  {
+    "id": 17,
+    "name": "Eco-Friendly Runner",
+    "price": 125.00,
+    "image_url": "images/card-item7.jpg"
+  },
+  {
+    "id": 18,
+    "name": "Luxury Leather Oxford",
+    "price": 220.00,
+    "image_url": "images/card-item8.jpg"
+  },
+  {
+    "id": 19,
+    "name": "Skate Park Deck",
+    "price": 79.00,
+    "image_url": "images/card-item9.jpg"
+  },
+  {
+    "id": 20,
+    "name": "Winter Insulated Boot",
+    "price": 185.00,
+    "image_url": "images/card-item10.jpg"
+  }
+]
