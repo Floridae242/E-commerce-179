@@ -3,120 +3,160 @@
     "id": 1,
     "name": "Classic Running Shoes",
     "price": 99.00,
-    "image_url": "images/card-item1.jpg"
+    "image_url": "images/card-item1.jpg",
+    "category": "Running",
+    "description": "Cushioned everyday running shoe with breathable mesh upper."
   },
   {
     "id": 2,
     "name": "Sport Sneakers Pro",
     "price": 129.00,
-    "image_url": "images/card-item2.jpg"
+    "image_url": "images/card-item2.jpg",
+    "category": "Sneakers",
+    "description": "All-day sport sneakers with responsive foam midsole."
   },
   {
     "id": 3,
     "name": "Urban Street Runner",
     "price": 85.00,
-    "image_url": "images/card-item3.jpg"
+    "image_url": "images/card-item3.jpg",
+    "category": "Running",
+    "description": "City-ready runner built for short commutes and long walks."
   },
   {
     "id": 4,
     "name": "Lightweight Trail Shoes",
     "price": 110.00,
-    "image_url": "images/card-item4.jpg"
+    "image_url": "images/card-item4.jpg",
+    "category": "Hiking",
+    "description": "Grippy outsole and protective toe cap for light trails."
   },
   {
     "id": 5,
     "name": "Premium Comfort Walk",
     "price": 145.00,
-    "image_url": "images/card-item5.jpg"
+    "image_url": "images/card-item5.jpg",
+    "category": "Casual",
+    "description": "Soft leather walking shoe engineered for all-day comfort."
   },
   {
     "id": 6,
     "name": "Daily Casual Sneakers",
     "price": 75.00,
-    "image_url": "images/card-item6.jpg"
+    "image_url": "images/card-item6.jpg",
+    "category": "Casual",
+    "description": "Minimalist canvas sneakers that pair with anything."
   },
   {
     "id": 7,
     "name": "Flex Motion Runner",
     "price": 119.00,
-    "image_url": "images/card-item7.jpg"
+    "image_url": "images/card-item7.jpg",
+    "category": "Running",
+    "description": "Flexible knit upper with a propulsive forefoot."
   },
   {
     "id": 8,
     "name": "Air Boost Max",
     "price": 159.00,
-    "image_url": "images/card-item8.jpg"
+    "image_url": "images/card-item8.jpg",
+    "category": "Sneakers",
+    "description": "Air-cushioned sneaker with bold streetwear styling."
   },
   {
     "id": 9,
     "name": "Retro Classic Kicks",
     "price": 89.00,
-    "image_url": "images/card-item9.jpg"
+    "image_url": "images/card-item9.jpg",
+    "category": "Sneakers",
+    "description": "Throwback silhouette in premium suede."
   },
   {
     "id": 10,
     "name": "Speed Elite Racer",
     "price": 175.00,
-    "image_url": "images/card-item10.jpg"
+    "image_url": "images/card-item10.jpg",
+    "category": "Running",
+    "description": "Carbon-plate racer tuned for podium-chasing tempos."
   },
   {
     "id": 11,
     "name": "Cloud Step Lite",
     "price": 95.00,
-    "image_url": "images/card-item1.jpg"
+    "image_url": "images/card-item1.jpg",
+    "category": "Running",
+    "description": "Plush, lightweight daily trainer for easy miles."
   },
   {
     "id": 12,
     "name": "Marathon Pro X",
     "price": 199.00,
-    "image_url": "images/card-item2.jpg"
+    "image_url": "images/card-item2.jpg",
+    "category": "Running",
+    "description": "Endurance-focused racer with a stable, energetic ride."
   },
   {
     "id": 13,
     "name": "Heritage Canvas Low",
     "price": 65.00,
-    "image_url": "images/card-item3.jpg"
+    "image_url": "images/card-item3.jpg",
+    "category": "Casual",
+    "description": "Iconic low-top canvas in a refined modern cut."
   },
   {
     "id": 14,
     "name": "All-Terrain Hiker",
     "price": 135.00,
-    "image_url": "images/card-item4.jpg"
+    "image_url": "images/card-item4.jpg",
+    "category": "Hiking",
+    "description": "Waterproof hiker with aggressive lugs for mixed terrain."
   },
   {
     "id": 15,
     "name": "Minimalist Slide",
     "price": 55.00,
-    "image_url": "images/card-item5.jpg"
+    "image_url": "images/card-item5.jpg",
+    "category": "Casual",
+    "description": "Clean slip-on profile for off-duty days."
   },
   {
     "id": 16,
     "name": "Power Gym Trainer",
     "price": 115.00,
-    "image_url": "images/card-item6.jpg"
+    "image_url": "images/card-item6.jpg",
+    "category": "Training",
+    "description": "Stable platform built for lifts and high-intensity sets."
   },
   {
     "id": 17,
     "name": "Eco-Friendly Runner",
     "price": 125.00,
-    "image_url": "images/card-item7.jpg"
+    "image_url": "images/card-item7.jpg",
+    "category": "Running",
+    "description": "Recycled materials with a smooth, neutral ride."
   },
   {
     "id": 18,
     "name": "Luxury Leather Oxford",
     "price": 220.00,
-    "image_url": "images/card-item8.jpg"
+    "image_url": "images/card-item8.jpg",
+    "category": "Formal",
+    "description": "Hand-finished leather oxford with a sleek toe shape."
   },
   {
     "id": 19,
     "name": "Skate Park Deck",
     "price": 79.00,
-    "image_url": "images/card-item9.jpg"
+    "image_url": "images/card-item9.jpg",
+    "category": "Sneakers",
+    "description": "Vulcanized rubber sole built for grip and board feel."
   },
   {
     "id": 20,
     "name": "Winter Insulated Boot",
     "price": 185.00,
-    "image_url": "images/card-item10.jpg"
+    "image_url": "images/card-item10.jpg",
+    "category": "Hiking",
+    "description": "Insulated, waterproof boot for cold-weather adventures."
   }
 ]
