@@ -56,36 +56,33 @@ function renderProducts(products) {
   const grid = document.getElementById('product-grid');
   if (!grid) return;
 
-  const productsHTML = products.map(product => `
-    <div class="col mb-4">
-      <div class="product-card position-relative">
-        <div class="card-img">
-          <img src="${product.image_url}" alt="${escapeHtml(product.name)}" class="product-image img-fluid">
-          ${product.category ? `<span class="product-badge">${escapeHtml(product.category)}</span>` : ''}
-          <div class="cart-concern position-absolute d-flex justify-content-center">
-            <div class="cart-button d-flex gap-2 justify-content-center align-items-center">
-              <button type="button" class="btn btn-light cart-add-btn" data-product-id="${product.id}" aria-label="Add to cart">
-                <svg class="shopping-carriage">
-                  <use xlink:href="#shopping-carriage"></use>
-                </svg>
-              </button>
-              <button type="button" class="btn btn-light quick-view-btn" data-product-id="${product.id}" data-bs-target="#modaltoggle" data-bs-toggle="modal" aria-label="Quick view">
-                <svg class="quick-view">
-                  <use xlink:href="#quick-view"></use>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail d-flex justify-content-between align-items-center mt-3">
-          <h3 class="card-title fs-6 fw-normal m-0">
-            <a href="index.html">${escapeHtml(product.name)}</a>
-          </h3>
-          <span class="card-price fw-bold">$${Number(product.price).toFixed(2)}</span>
-        </div>
+  const productsHTML = products.map((product, index) => {
+    const plate = String(index + 1).padStart(2, '0');
+    const wide = ((index + 1) % 5 === 0); // every fifth plate breaks the rhythm
+    return `
+    <article class="plate ${wide ? 'plate--wide' : ''}" style="--reveal-delay:${Math.min(index, 11) * 40}ms">
+      <div class="plate__frame">
+        <span class="plate__number" aria-hidden="true">№&nbsp;${plate}</span>
+        <a href="#" class="plate__media quick-view-btn" data-product-id="${product.id}" data-bs-target="#modaltoggle" data-bs-toggle="modal" aria-label="View ${escapeHtml(product.name)}">
+          <img src="${product.image_url}" alt="${escapeHtml(product.name)}" class="plate__image" loading="lazy">
+        </a>
+        <aside class="plate__sheet" aria-hidden="true">
+          <p class="plate__sheet-line mono">Plate ${plate} · ${escapeHtml(product.category || 'Edit')}</p>
+          <p class="plate__sheet-copy">${escapeHtml(product.description || 'A quiet object built for honest wear.')}</p>
+          <button type="button" class="plate__cta cart-add-btn" data-product-id="${product.id}">
+            <span>Add to bag</span>
+            <span class="plate__cta-rule" aria-hidden="true"></span>
+            <span class="mono">+</span>
+          </button>
+        </aside>
       </div>
-    </div>
-  `).join('');
+      <div class="plate__caption">
+        <span class="plate__index mono">№ ${plate} ${product.category ? `· <span class="plate__cat">${escapeHtml(product.category)}</span>` : ''}</span>
+        <h3 class="plate__name"><em>${escapeHtml(product.name)}</em></h3>
+        <span class="plate__price mono">$${Number(product.price).toFixed(2)}</span>
+      </div>
+    </article>`;
+  }).join('');
 
   grid.innerHTML = productsHTML;
 }
@@ -175,28 +172,23 @@ function applyFilters() {
 
   if (working.length === 0) {
     grid.innerHTML = `
-      <div class="col-12">
-        <div class="no-results text-center py-5">
-          <svg class="no-results-icon mb-3" width="48" height="48" aria-hidden="true">
-            <use xlink:href="#search"></use>
-          </svg>
-          <h4 class="fw-normal mb-2">No results found</h4>
-          <p class="text-muted m-0">
-            We couldn't find anything matching your search. Try different keywords or pick another category.
-          </p>
-        </div>
+      <div class="editorial-empty">
+        <span class="mono">— No matches —</span>
+        <h4>Nothing in this cabinet.</h4>
+        <p>Try a different word, or open the edit at large.</p>
       </div>
     `;
-    if (resultCount) resultCount.textContent = '0 products';
+    if (resultCount) resultCount.textContent = '00 / 00';
     return;
   }
 
   renderProducts(working);
   if (resultCount) {
     const total = window.allProducts.length;
+    const fmt = (n) => String(n).padStart(2, '0');
     resultCount.textContent = working.length === total
-      ? `Showing all ${total} products`
-      : `Showing ${working.length} of ${total} products`;
+      ? `${fmt(total)} / ${fmt(total)} · the full edit`
+      : `${fmt(working.length)} / ${fmt(total)} · filtered`;
   }
 }
 
