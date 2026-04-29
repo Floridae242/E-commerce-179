@@ -1726,3 +1726,101 @@ a.text-hover:focus:after {
 .no-results h4 {
   color: #2b2b2b;
 }
+
+/* ===========================================================
+   Cart — badge, line items, empty state, toast
+   =========================================================== */
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: #e63946;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 999px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.cart-badge--visible {
+  display: flex;
+}
+
+@keyframes cart-badge-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.45); }
+  100% { transform: scale(1); }
+}
+
+.cart-badge--pulse {
+  animation: cart-badge-pulse 0.32s ease-out;
+}
+
+.cart-empty-msg {
+  text-align: center;
+  padding: 36px 12px 28px;
+  margin: 0;
+  color: #888;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+#cart-items-list .mini-cart-item img {
+  max-width: 70px;
+  height: auto;
+  border-radius: 6px;
+}
+
+#cart-items-list .remove {
+  cursor: pointer;
+  color: #888;
+  transition: color 0.15s ease;
+}
+
+#cart-items-list .remove:hover {
+  color: #e63946;
+}
+
+#cart-items-list .cart-product-qty .quantity {
+  max-width: 56px;
+}
+
+.cart-empty-msg[hidden],
+#cart-empty-msg[hidden] {
+  display: none;
+}
+
+.cart-toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: #111;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  max-width: 320px;
+}
+
+.cart-toast--show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cart-toast strong {
+  font-weight: 600;
+}

@@ -42,6 +42,8 @@ async function requestProducts() {
     errorDiv.style.display = 'block';
   } finally {
     spinner.style.display = 'none';
+    // Signal — even on failure — so dependents (cart.js) can stop waiting.
+    document.dispatchEvent(new CustomEvent('productsReady', { detail: window.allProducts }));
   }
 }
 
@@ -62,12 +64,12 @@ function renderProducts(products) {
           ${product.category ? `<span class="product-badge">${escapeHtml(product.category)}</span>` : ''}
           <div class="cart-concern position-absolute d-flex justify-content-center">
             <div class="cart-button d-flex gap-2 justify-content-center align-items-center">
-              <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modallong" aria-label="Add to cart">
+              <button type="button" class="btn btn-light cart-add-btn" data-product-id="${product.id}" aria-label="Add to cart">
                 <svg class="shopping-carriage">
                   <use xlink:href="#shopping-carriage"></use>
                 </svg>
               </button>
-              <button type="button" class="btn btn-light" data-bs-target="#modaltoggle" data-bs-toggle="modal" aria-label="Quick view">
+              <button type="button" class="btn btn-light quick-view-btn" data-product-id="${product.id}" data-bs-target="#modaltoggle" data-bs-toggle="modal" aria-label="Quick view">
                 <svg class="quick-view">
                   <use xlink:href="#quick-view"></use>
                 </svg>
