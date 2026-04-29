@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,900;1,900&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,900;1,900&family=Source+Sans+Pro:wght@400;600;700;900&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap"
     rel="stylesheet">
 </head>
 
@@ -541,53 +541,74 @@
       </div>
     </div>
   </section>
-  <section id="catalog" class="product-store py-2 my-2 py-md-5 my-md-5">
-    <div class="container-md">
-      <h2 class="section-title text-uppercase">Our Products</h2>
+  <section id="catalog" class="editorial-catalog">
+    <div class="editorial-container">
 
-      <div class="catalog-toolbar mb-4">
-        <div class="row g-3 align-items-center">
-          <div class="col-12 col-md-6 col-lg-7">
-            <div class="search-field position-relative">
-              <svg class="search-icon" width="18" height="18" aria-hidden="true">
-                <use xlink:href="#search"></use>
-              </svg>
-              <input
-                type="search"
-                id="searchInput"
-                class="form-control catalog-search"
-                placeholder="Search products by name or description..."
-                autocomplete="off"
-                aria-label="Search products">
-            </div>
-          </div>
-          <div class="col-6 col-md-3 col-lg-3">
-            <select id="categorySelect" class="form-select catalog-select" aria-label="Filter by category">
-              <option value="All">All Categories</option>
-            </select>
-          </div>
-          <div class="col-6 col-md-3 col-lg-2">
-            <select id="sortSelect" class="form-select catalog-select" aria-label="Sort products">
-              <option value="default">Sort: Featured</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="name-asc">Name: A → Z</option>
-              <option value="name-desc">Name: Z → A</option>
-            </select>
-          </div>
+      <header class="editorial-masthead">
+        <div class="editorial-masthead__rule" aria-hidden="true"></div>
+        <div class="editorial-masthead__meta">
+          <span class="mono">Issue No. 04</span>
+          <span class="mono">SS — 2026</span>
         </div>
-        <div id="result-count" class="result-count mt-3" aria-live="polite"></div>
+        <h2 class="editorial-masthead__title">
+          The <em>Field</em> Edit
+        </h2>
+        <p class="editorial-masthead__lede">
+          Twenty silhouettes for the season. Numbered, named, and made to walk further than expected.
+        </p>
+      </header>
+
+      <div class="editorial-toolbar">
+        <label class="editorial-field editorial-field--search">
+          <span class="editorial-field__label mono">Find</span>
+          <div class="editorial-field__control">
+            <input
+              type="search"
+              id="searchInput"
+              class="editorial-input"
+              placeholder="Type a name, a feeling, a season…"
+              autocomplete="off"
+              aria-label="Search products">
+            <svg class="editorial-field__icon" width="16" height="16" aria-hidden="true">
+              <use xlink:href="#search"></use>
+            </svg>
+          </div>
+        </label>
+
+        <label class="editorial-field">
+          <span class="editorial-field__label mono">Cabinet</span>
+          <div class="editorial-field__control">
+            <select id="categorySelect" class="editorial-input editorial-select" aria-label="Filter by category">
+              <option value="All">All</option>
+            </select>
+          </div>
+        </label>
+
+        <label class="editorial-field">
+          <span class="editorial-field__label mono">Order</span>
+          <div class="editorial-field__control">
+            <select id="sortSelect" class="editorial-input editorial-select" aria-label="Sort products">
+              <option value="default">Editor's order</option>
+              <option value="price-asc">Price · ascending</option>
+              <option value="price-desc">Price · descending</option>
+              <option value="name-asc">Name · A to Z</option>
+              <option value="name-desc">Name · Z to A</option>
+            </select>
+          </div>
+        </label>
+
+        <div id="result-count" class="editorial-result-count mono" aria-live="polite"></div>
       </div>
 
-      <div id="loading-spinner" style="display: none; text-align: center;">
-        <p>⏳ Loading products...</p>
+      <div id="loading-spinner" class="editorial-loading" style="display: none;">
+        <span class="mono">Loading the edit…</span>
       </div>
 
-      <div id="error-message" style="display: none; color: red; text-align: center;"></div>
+      <div id="error-message" class="editorial-error" style="display: none;"></div>
 
-      <div id="product-container" class="product-content padding-small">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5" id="product-grid">
-          <!-- Products will be dynamically loaded here by renderProducts() -->
+      <div id="product-container" class="editorial-grid-wrap">
+        <div id="product-grid" class="editorial-grid">
+          <!-- Editorial product plates injected here by renderProducts() -->
         </div>
       </div>
     </div>
