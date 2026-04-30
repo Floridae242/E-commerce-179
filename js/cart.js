@@ -216,13 +216,13 @@
 
   /* ----- product grid binding (add-to-cart) ----- */
   function _wireProductGrid() {
-    const grid = document.getElementById('product-grid');
-    if (!grid) return;
-    grid.addEventListener('click', (e) => {
-      const btn = e.target.closest('.cart-add-btn');
+    const catalog = document.getElementById('catalog');
+    if (!catalog) return;
+    catalog.addEventListener('click', (e) => {
+      const btn = e.target.closest('.add-to-cart');
       if (!btn) return;
       e.preventDefault();
-      add(Number(btn.dataset.productId), 1);
+      add(Number(btn.dataset.id), 1);
     });
   }
 

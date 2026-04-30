@@ -69,7 +69,7 @@ function renderProducts(products) {
         <aside class="plate__sheet" aria-hidden="true">
           <p class="plate__sheet-line mono">Plate ${plate} · ${escapeHtml(product.category || 'Edit')}</p>
           <p class="plate__sheet-copy">${escapeHtml(product.description || 'A quiet object built for honest wear.')}</p>
-          <button type="button" class="plate__cta cart-add-btn" data-product-id="${product.id}">
+          <button type="button" class="plate__cta add-to-cart" data-id="${product.id}">
             <span>Add to bag</span>
             <span class="plate__cta-rule" aria-hidden="true"></span>
             <span class="mono">+</span>
