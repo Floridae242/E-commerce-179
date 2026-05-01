@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,900;1,900&family=Source+Sans+Pro:wght@400;600;700;900&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,900;1,900&family=Source+Sans+Pro:wght@400;600;700;900&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap"
     rel="stylesheet">
 </head>
 
@@ -280,6 +280,12 @@
   </div>
   <!-- Login -->
 
+  <div class="ed-ticker" aria-hidden="true">
+    <div class="ed-ticker__track">
+      <span>Volume 07</span><span>The Quiet Riot</span><span>Free shipping over $100</span><span>New atelier — Bangkok</span><span>Spring · Summer 2026</span><span>Volume 07</span><span>The Quiet Riot</span><span>Free shipping over $100</span><span>New atelier — Bangkok</span><span>Spring · Summer 2026</span>
+    </div>
+  </div>
+
   <header id="header" class="site-header text-black">
     <div class="header-top border-bottom py-2">
       <div class="container-lg">
@@ -444,100 +450,64 @@
     </nav>
   </header>
 
-  <section id="intro" class="position-relative mt-4">
-    <div class="container-lg">
-      <div class="swiper main-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="card d-flex flex-row align-items-end border-0 large jarallax-keep-img">
-              <img src="images/card-image1.jpg" alt="shoes" class="img-fluid jarallax-img">
-              <div class="cart-concern p-3 m-3 p-lg-5 m-lg-5">
-                <h2 class="card-title display-3 light">Stylish shoes for Women</h2>
-                <a href="index.html"
-                  class="text-uppercase light mt-3 d-inline-block text-hover fw-bold light-border">Shop Now</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="row g-4">
-              <div class="col-lg-12 mb-4">
-                <div class="card d-flex flex-row align-items-end border-0 jarallax-keep-img">
-                  <img src="images/card-image2.jpg" alt="shoes" class="img-fluid jarallax-img">
-                  <div class="cart-concern p-3 m-3 p-lg-5 m-lg-5">
-                    <h2 class="card-title style-2 display-4 light">Sports Wear</h2>
-                    <a href="index.html"
-                      class="text-uppercase light mt-3 d-inline-block text-hover fw-bold light-border">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="card d-flex flex-row align-items-end border-0 jarallax-keep-img">
-                  <img src="images/card-image3.jpg" alt="shoes" class="img-fluid jarallax-img">
-                  <div class="cart-concern p-3 m-3 p-lg-5 m-lg-5">
-                    <h2 class="card-title style-2 display-4 light">Fashion Shoes</h2>
-                    <a href="index.html"
-                      class="text-uppercase light mt-3 d-inline-block text-hover fw-bold light-border">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="card d-flex flex-row align-items-end border-0 large jarallax-keep-img">
-              <img src="images/card-image4.jpg" alt="shoes" class="img-fluid jarallax-img">
-              <div class="cart-concern p-3 m-3 p-lg-5 m-lg-5">
-                <h2 class="card-title display-3 light">Stylish shoes for men</h2>
-                <a href="index.html"
-                  class="text-uppercase light mt-3 d-inline-block text-hover fw-bold light-border">Shop Now</a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="row g-4">
-              <div class="col-lg-12 mb-4">
-                <div class="card d-flex flex-row align-items-end border-0 jarallax-keep-img">
-                  <img src="images/card-image5.jpg" alt="shoes" class="img-fluid jarallax-img">
-                  <div class="cart-concern p-3 m-3 p-lg-5 m-lg-5">
-                    <h2 class="card-title style-2 display-4 light">Men Shoes</h2>
-                    <a href="index.html"
-                      class="text-uppercase light mt-3 d-inline-block text-hover fw-bold light-border">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="card d-flex flex-row align-items-end border-0 jarallax-keep-img">
-                  <img src="images/card-image6.jpg" alt="shoes" class="img-fluid jarallax-img">
-                  <div class="cart-concern p-3 m-3 p-lg-5 m-lg-5">
-                    <h2 class="card-title style-2 display-4 light">Women Shoes</h2>
-                    <a href="index.html"
-                      class="text-uppercase light mt-3 d-inline-block text-hover fw-bold light-border">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <section id="intro" class="ed-hero">
+    <div class="ed-hero__bar">
+      <span class="mono">№ 07 — Spring/Summer · Editorial</span>
+      <span class="mono">Bangkok · 27.4°C · soft south-west wind</span>
+    </div>
+
+    <div class="ed-hero__inner">
+      <div class="ed-hero__title">
+        <h1 class="ed-display">
+          <span class="r r1">The</span>
+          <span class="r r2"><em>Quiet</em></span>
+          <span class="r r3 ko">Riot.</span>
+        </h1>
+        <div class="ed-hero__sub r r4">
+          <span class="ed-rule"></span>
+          <span class="mono">Read the issue / Shop the wardrobe</span>
+        </div>
+        <div class="ed-hero__cta r r5">
+          <a href="#catalog" class="ed-btn ed-btn--ink">Enter the edit →</a>
+          <a href="#" class="ed-btn ed-btn--ghost">Subscribe</a>
         </div>
       </div>
-      <div class="swiper-pagination"></div>
+
+      <figure class="ed-hero__plate r r3">
+        <img src="images/card-image1.jpg" alt="Cover plate I" class="ed-hero__img">
+        <figcaption class="ed-hero__stamp mono">Plate I · Photographed in Talat Noi</figcaption>
+        <div class="ed-hero__badge" aria-hidden="true">
+          <span>Issue<br>07</span>
+          <small class="mono">SS · MMXXVI</small>
+        </div>
+      </figure>
+
+      <figure class="ed-hero__side r r4">
+        <img src="images/card-image2.jpg" alt="Plate II">
+        <figcaption class="mono">Plate II · The Sports Edit</figcaption>
+      </figure>
     </div>
   </section>
-  <section class="discount-coupon py-2 my-2 py-md-5 my-md-5">
-    <div class="container">
-      <div class="bg-gray coupon position-relative p-5">
-        <div class="bold-text position-absolute">10% OFF</div>
-        <div class="row justify-content-between align-items-center">
-          <div class="col-lg-7 col-md-12 mb-3">
-            <div class="coupon-header">
-              <h2 class="display-7">10% OFF Discount Coupons</h2>
-              <p class="m-0">Subscribe us to get 10% OFF on all the purchases</p>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-12">
-            <div class="btn-wrap">
-              <a href="#" class="btn btn-black btn-medium text-uppercase hvr-sweep-to-right">Email me</a>
-            </div>
-          </div>
+
+  <div class="ed-marquee" aria-hidden="true">
+    <div class="ed-marquee__track">
+      <span>Made slowly<i></i>Worn loudly<i></i>Stylish · Vol 07<i></i>The Quiet Riot<i></i>Made slowly<i></i>Worn loudly<i></i>Stylish · Vol 07<i></i>The Quiet Riot<i></i></span>
+    </div>
+  </div>
+
+  <section class="ed-coupon">
+    <div class="container-lg">
+      <div class="ed-coupon__panel">
+        <div class="ed-coupon__num mono">№ 02</div>
+        <div class="ed-coupon__copy">
+          <p class="mono ed-kicker">A folded letter</p>
+          <h2 class="ed-coupon__title">Receive <em>10%</em> off — and the seasonal dispatch.</h2>
+          <p class="ed-coupon__sub">One issue per season. No noise. Unsubscribe with a single click.</p>
         </div>
+        <form class="ed-coupon__form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Thank you ✶'">
+          <input type="email" required placeholder="your@address" aria-label="email">
+          <button type="submit">Email me</button>
+        </form>
       </div>
     </div>
   </section>
