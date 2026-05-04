@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "firstName": "Ploy",
+    "username": "ploy.v@stylish.co",
+    "passwordHash": "$2b$12$KpoZhySkxf3Zr4z.AjWPNOQjcR/U.THD/N31MzKEZjENjlWsM5HYy",
+    "registeredAt": "2024-01-15"
+  },
+  {
+    "id": 2,
+    "firstName": "Tawan",
+    "username": "tawan.s@stylish.co",
+    "passwordHash": "$2b$12$ANS4d7Q/2APJeSAR.GwUje1wC5BQZF74NoND20DEgTO5wy7QFo3mq",
+    "registeredAt": "2024-02-08"
+  },
+  {
+    "id": 3,
+    "firstName": "Mint",
+    "username": "mint.j@stylish.co",
+    "passwordHash": "$2b$12$8cnNTtEA1JnfL.sQiGXk..o7vTfzPbI.l4k/KZFCRunTPzuJc7yg.",
+    "registeredAt": "2024-03-22"
+  },
+  {
+    "id": 4,
+    "firstName": "Krit",
+    "username": "krit.p@stylish.co",
+    "passwordHash": "$2b$12$LjkSEZlkfPuNr096EIPIgON2r8bKJV/A6SfFbyGIQ24yP5H9Ml6HK",
+    "registeredAt": "2024-04-01"
+  },
+  {
+    "id": 5,
+    "firstName": "Fah",
+    "username": "fah.k@stylish.co",
+    "passwordHash": "$2b$12$40aB9GXcvMNK/iQ2Hrm8ce/KsZ09ra5x/BtIkRpN0PmyJRiCosgdu",
+    "registeredAt": "2024-05-17"
+  },
+  {
+    "id": 6,
+    "firstName": "Nida",
+    "username": "nida.r@stylish.co",
+    "passwordHash": "$2b$12$ibdhXsU32r39BDZoEqM52Orf40l15kbMCYHD69ylQ4o8Zh56TtX5u",
+    "registeredAt": "2024-06-30"
+  },
+  {
+    "id": 7,
+    "firstName": "Peem",
+    "username": "peem.c@stylish.co",
+    "passwordHash": "$2b$12$/46DQNskM5dShdg0vZ1AK.1RVVcuUgxPkTQfjLAielXGnWX7TeBwO",
+    "registeredAt": "2024-07-11"
+  },
+  {
+    "id": 8,
+    "firstName": "Beam",
+    "username": "beam.t@stylish.co",
+    "passwordHash": "$2b$12$bi52eCb1M8AagrjnWOHjV.ANZq0siYkHgmBP2i7.zwg1Rw9gGlQo6",
+    "registeredAt": "2024-08-25"
+  },
+  {
+    "id": 9,
+    "firstName": "Joy",
+    "username": "joy.n@stylish.co",
+    "passwordHash": "$2b$12$QrWw0aoKlSf.N2MUrFnCauFtek.tRt4NOki7ccgnJu3UnSzgoLPsm",
+    "registeredAt": "2024-09-03"
+  },
+  {
+    "id": 10,
+    "firstName": "Gun",
+    "username": "gun.w@stylish.co",
+    "passwordHash": "$2b$12$EgIvJ6K8G3SgGO7gGstc4.hY0v5.pg1.NukOpQNjOaEUsbK6f9Wtm",
+    "registeredAt": "2024-10-19"
+  }
+]

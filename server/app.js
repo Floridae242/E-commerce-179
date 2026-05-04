@@ -19,6 +19,7 @@
 const express       = require('express');
 const path          = require('path');
 const productsRoute = require('./routes/products');
+const authRoute     = require('./routes/auth');
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use(express.static(path.resolve(__dirname, '..')));
 //   GET /api/products          → all products
 //   GET /api/products?category=Running → filtered products
 app.use('/api/products', productsRoute);
+app.use('/api/login',   authRoute);
 
 // ── 404 catch-all ─────────────────────────────────────────────────────────────
 // Must come AFTER all route mounts.
