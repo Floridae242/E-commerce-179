@@ -24,11 +24,7 @@
 
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol xmlns="http://www.w3.org/2000/svg" id="shopping-carriage" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M5 22H19C20.103 22 21 21.103 21 20V9C21 8.73478 20.8946 8.48043 20.7071 8.29289C20.5196 8.10536 20.2652 8 20 8H17V7C17 4.243 14.757 2 12 2C9.243 2 7 4.243 7 7V8H4C3.73478 8 3.48043 8.10536 3.29289 8.29289C3.10536 8.48043 3 8.73478 3 9V20C3 21.103 3.897 22 5 22ZM9 7C9 5.346 10.346 4 12 4C13.654 4 15 5.346 15 7V8H9V7ZM5 10H7V12H9V10H15V12H17V10H19L19.002 20H5V10Z"
-        fill="black" />
-    </symbol>
+    <!-- shopping-carriage removed: unused duplicate of #shopping-cart -->
     <symbol xmlns="http://www.w3.org/2000/svg" id="quick-view" viewBox="0 0 24 24">
       <path fill="currentColor"
         d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396l1.414-1.414l-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8s3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6s-6-2.691-6-6s2.691-6 6-6z" />
@@ -44,10 +40,7 @@
         d="M16.5 21C17.3284 21 18 20.3284 18 19.5C18 18.6716 17.3284 18 16.5 18C15.6716 18 15 18.6716 15 19.5C15 20.3284 15.6716 21 16.5 21Z"
         fill="black" />
     </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="nav-icon" viewBox="0 0 16 16">
-      <path
-        d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
-    </symbol>
+    <!-- nav-icon removed: identical path to #navbar-icon which is used instead -->
     <symbol xmlns="http://www.w3.org/2000/svg" id="close" viewBox="0 0 16 16">
       <path
         d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
@@ -242,43 +235,75 @@
   </div>
   <!-- cart view -->
 
+  <!-- ── Unified Auth Modal (Login + Register) ──────────────────────────────
+       Single modal, two tabs. All triggers use #modallogin so nothing changes
+       outside this block. Tab switching and API calls handled in auth.js.
+  ──────────────────────────────────────────────────────────────────────── -->
   <div class="modal fade" id="modallogin" tabindex="-1" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-fullscreen-md-down modal-md modal-dialog-centered" role="document">
       <div class="modal-content p-4">
-        <div class="modal-header mx-auto border-0">
-          <h2 class="modal-title fs-3 fw-normal">Login</h2>
+
+        <!-- Tab switcher -->
+        <div class="auth-tabs d-flex border-bottom mb-4">
+          <button class="auth-tab active" data-auth-tab="login">Login</button>
+          <button class="auth-tab" data-auth-tab="register">Register</button>
+          <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <div class="login-detail">
-            <div class="login-form p-0">
-              <div class="col-lg-12 mx-auto">
-                <form id="login-form">
-                  <input type="text" name="username" placeholder="Username or Email Address *"
-                    class="mb-3 ps-3 text-input">
-                  <input type="password" name="password" placeholder="Password" class="ps-3 text-input">
-                  <div class="checkbox d-flex justify-content-between mt-4">
-                    <p class="checkbox-form">
-                      <label class="">
-                        <input name="rememberme" type="checkbox" id="remember-me" value="forever"> Remember me </label>
-                    </p>
-                    <p class="lost-password">
-                      <a href="#">Forgot your password?</a>
-                    </p>
-                  </div>
-                </form>
+
+        <div class="modal-body p-0">
+
+          <!-- ── LOGIN PANEL ───────────────────────────────────────────── -->
+          <div id="auth-panel-login" class="auth-panel">
+            <form id="login-form" novalidate>
+              <input type="email" name="email" placeholder="Email address *"
+                class="mb-3 ps-3 text-input" required autocomplete="email">
+              <input type="password" name="password" placeholder="Password *"
+                class="ps-3 text-input" required autocomplete="current-password">
+              <div class="checkbox d-flex justify-content-between mt-3">
+                <label class="checkbox-form">
+                  <input name="rememberme" type="checkbox" id="remember-me" value="forever"> Remember me
+                </label>
+                <a href="#" class="lost-password">Forgot your password?</a>
               </div>
-            </div>
-            <div class="modal-footer mt-5 d-flex justify-content-center">
-              <button type="button" class="btn btn-red hvr-sweep-to-right dark-sweep">Login</button>
-              <button type="button"
-                class="btn btn-outline-gray hvr-sweep-to-right dark-sweep">Register</button>
-            </div>
+              <div id="login-error" class="auth-message auth-message--error" hidden></div>
+              <div id="login-success" class="auth-message auth-message--success" hidden></div>
+              <div class="mt-4 d-flex justify-content-center">
+                <button type="submit" id="login-submit" class="btn btn-red hvr-sweep-to-right dark-sweep">Login</button>
+              </div>
+            </form>
+            <p class="text-center mt-3 auth-switch-hint">
+              No account? <button class="auth-switch-link" data-auth-tab="register">Register here</button>
+            </p>
           </div>
+
+          <!-- ── REGISTER PANEL ─────────────────────────────────────────── -->
+          <div id="auth-panel-register" class="auth-panel" hidden>
+            <form id="register-form" novalidate>
+              <input type="text" name="firstName" placeholder="First name *"
+                class="mb-3 ps-3 text-input" required autocomplete="given-name">
+              <input type="email" name="email" placeholder="Email address *"
+                class="mb-3 ps-3 text-input" required autocomplete="email">
+              <input type="password" name="password" placeholder="Password *"
+                class="mb-3 ps-3 text-input" required autocomplete="new-password">
+              <input type="password" name="confirmPassword" placeholder="Confirm password *"
+                class="ps-3 text-input" required autocomplete="new-password">
+              <p class="auth-hint mt-2">Min 8 chars · 1 uppercase · 1 number · 1 special character</p>
+              <div id="register-error" class="auth-message auth-message--error" hidden></div>
+              <div id="register-success" class="auth-message auth-message--success" hidden></div>
+              <div class="mt-4 d-flex justify-content-center">
+                <button type="submit" id="register-submit" class="btn btn-red hvr-sweep-to-right dark-sweep">Create account</button>
+              </div>
+            </form>
+            <p class="text-center mt-3 auth-switch-hint">
+              Already have an account? <button class="auth-switch-link" data-auth-tab="login">Login here</button>
+            </p>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
-  <!-- Login -->
+  <!-- /Unified Auth Modal -->
 
   <div class="ed-ticker" aria-hidden="true">
     <div class="ed-ticker__track">
@@ -326,16 +351,11 @@
             <p class="text-center text-black m-0"><strong>Special Offer</strong>: Free Shipping on all the orders above $100
             </p>
           </div>
+          <!-- Cart and Login removed here — icon bar in nav is the single authority -->
           <div class="col">
             <ul class="d-flex justify-content-end gap-3 list-unstyled m-0">
               <li>
                 <a href="#">Contact</a>
-              </li>
-              <li>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#modallong">Cart</a>
-              </li>
-              <li>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#modallogin">Login</a>
               </li>
             </ul>
           </div>
@@ -403,12 +423,7 @@
                   <li>
                     <a class="dropdown-item" href="index.html">Styles </a>
                   </li>
-                  <li>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#modallong" class="dropdown-item">cart</a>
-                  </li>
-                  <li>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#modallogin" class="dropdown-item">Login</a>
-                  </li>
+                  <!-- Cart and Login removed: use the icon bar in the top nav -->
                 </ul>
               </li>
               <li class="nav-item">
@@ -423,7 +438,7 @@
         <div class="user-items ps-0 ps-md-5">
           <ul class="d-flex justify-content-end list-unstyled align-item-center m-0">
             <li class="pe-3">
-              <a href="login" data-bs-toggle="modal" data-bs-target="#modallogin" class="border-0">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modallogin" class="border-0" aria-label="Account">
                 <svg class="user" width="24" height="24">
                   <use xlink:href="#user"></use>
                 </svg>
@@ -688,10 +703,10 @@
                 <a href="index.html">Stores</a>
               </li>
               <li class="pb-2">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#modallogin">Login</a>
+                <a href="#">Wishlist</a>
               </li>
               <li class="pb-2">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#modallong">Cart</a>
+                <a href="#">Gift Cards</a>
               </li>
             </ul>
           </div>
@@ -741,6 +756,7 @@
   <script src="js/script.js"></script>
   <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 
 </html>

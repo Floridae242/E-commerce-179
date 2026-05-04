@@ -68,5 +68,12 @@
     "username": "gun.w@stylish.co",
     "passwordHash": "$2b$12$EgIvJ6K8G3SgGO7gGstc4.hY0v5.pg1.NukOpQNjOaEUsbK6f9Wtm",
     "registeredAt": "2024-10-19"
+  },
+  {
+    "id": 11,
+    "firstName": "Noon",
+    "username": "noon.k@stylish.co",
+    "passwordHash": "$2b$12$n2l5hxWArftbBz9cnMnGQer7Wtfz936Xf3W.IcP/l9b7N4CoF.Edm",
+    "registeredAt": "2026-05-04"
   }
 ]
