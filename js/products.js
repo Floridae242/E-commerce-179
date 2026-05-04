@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', requestProducts);
 
 /**
  * Fetches product data, manages loading/error UI, then triggers the first render
- * and wires up the filter controls.
+ * and wires up the filter controls..
  */
 async function requestProducts() {
   const grid     = document.getElementById('product-grid');
