@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "email": "a@b.com",
+    "cardLast4": "3456",
+    "cart": [
+      {
+        "id": 1,
+        "name": "Classic Running Shoes",
+        "price": 99,
+        "quantity": 2
+      }
+    ],
+    "total": 198,
+    "status": "confirmed",
+    "placedAt": "2026-05-05T03:28:52.640Z"
+  },
+  {
+    "id": 2,
+    "email": "t@t.com",
+    "cardLast4": "3456",
+    "cart": [
+      {
+        "id": 1,
+        "name": "x",
+        "price": 1,
+        "quantity": 1
+      }
+    ],
+    "total": 1,
+    "status": "confirmed",
+    "placedAt": "2026-05-05T03:30:50.422Z"
+  },
+  {
+    "id": 3,
+    "email": "test@example.com",
+    "cardLast4": "3456",
+    "cart": [
+      {
+        "id": 1,
+        "name": "Classic Running Shoes",
+        "price": 99,
+        "quantity": 1
+      }
+    ],
+    "total": 99,
+    "status": "confirmed",
+    "placedAt": "2026-05-05T03:49:33.618Z"
+  }
+]

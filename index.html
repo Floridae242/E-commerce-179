@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+  <!-- API base — when served via Live Server (or any port ≠ 3000) all fetch()
+       calls use the explicit Node origin so they reach the right server.
+       When opened directly from localhost:3000 this stays an empty string
+       (relative URLs work fine). -->
+  <script>
+    window.API_BASE = window.location.port === '3000' ? '' : 'http://localhost:3000';
+  </script>
   <title>Stylish - Shoes Online Store HTML Template</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -122,21 +129,8 @@
     </svg>
   </div>
 
-  <div class="search-box bg-dark position-relative">
-    <div class="search-wrap">
-      <div class="close-button">
-        <svg class="close" style="fill: white;">
-          <use xlink:href="#close"></use>
-        </svg>
-      </div>
-      <form id="search-form" class="text-lg-center text-md-left pt-3" action="index.html" method="get">
-        <input type="text" class="search-input" placeholder="Search...">
-        <svg class="search">
-          <use xlink:href="#search"></use>
-        </svg>
-      </form>
-    </div>
-  </div>
+  <!-- .search-box overlay removed: the editorial #searchInput (below) is the
+       live product filter and supersedes this legacy page-reload form. -->
 
   <!-- quick view -->
   <div class="modal fade" id="modaltoggle" aria-hidden="true" tabindex="-1">
@@ -224,7 +218,7 @@
               </div>
               <div class="modal-footer my-4 justify-content-center">
                 <button type="button" class="btn btn-red hvr-sweep-to-right dark-sweep">View Cart</button>
-                <button type="button"
+                <button type="button" id="open-checkout-btn"
                   class="btn btn-outline-gray hvr-sweep-to-right dark-sweep">Checkout</button>
               </div>
             </div>
@@ -234,6 +228,65 @@
     </div>
   </div>
   <!-- cart view -->
+
+  <!-- ── Checkout Modal ────────────────────────────────────────────────────
+       Opens when the user clicks "Checkout" in the cart modal.
+       cart.js closes the cart modal first, then checkout.js opens this one.
+       POST /api/checkout handled entirely in js/checkout.js.
+  ──────────────────────────────────────────────────────────────────────── -->
+  <div class="modal fade" id="modalcheckout" tabindex="-1" aria-modal="true" role="dialog"
+       aria-labelledby="checkout-modal-title">
+    <div class="modal-dialog modal-fullscreen-md-down modal-md modal-dialog-centered">
+      <div class="modal-content p-4">
+
+        <!-- Header -->
+        <div class="d-flex align-items-center border-bottom mb-4 pb-3">
+          <h5 class="modal-title fw-bold mb-0" id="checkout-modal-title"
+              style="font-family:var(--ed-mono,'JetBrains Mono',monospace);letter-spacing:-.02em">
+            Checkout
+          </h5>
+          <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"
+                  aria-label="Close checkout"></button>
+        </div>
+
+        <div class="modal-body p-0">
+
+          <!-- Dynamic order summary (populated by checkout.js on modal open) -->
+          <div id="checkout-summary"></div>
+
+          <!-- Status messages -->
+          <div id="checkout-error"   class="auth-message auth-message--error"   hidden></div>
+          <div id="checkout-success" class="auth-message auth-message--success" hidden></div>
+
+          <!-- Checkout form -->
+          <form id="checkout-form" novalidate autocomplete="on">
+
+            <div class="mb-3">
+              <label for="checkout-email" class="form-label fw-semibold small">Email address</label>
+              <input type="email" class="form-control" id="checkout-email" name="email"
+                     placeholder="you@example.com" autocomplete="email" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="checkout-card" class="form-label fw-semibold small">Credit Card Number</label>
+              <input type="text" class="form-control" id="checkout-card" name="cardNumber"
+                     placeholder="1234 5678 9012 3456" maxlength="19"
+                     inputmode="numeric" autocomplete="cc-number" required>
+              <div class="form-text">16-digit card number (spaces accepted)</div>
+            </div>
+
+            <div class="d-grid mt-4">
+              <button type="submit" id="checkout-submit"
+                      class="btn btn-red hvr-sweep-to-right dark-sweep">
+                Place Order
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ── Unified Auth Modal (Login + Register) ──────────────────────────────
        Single modal, two tabs. All triggers use #modallogin so nothing changes
@@ -453,8 +506,9 @@
               </a>
             </li>
             <li>
-              <a href="#" class="search-item border-0" data-bs-toggle="collapse" data-bs-target="#search-box" aria-label="Toggle navigation">
-                <svg class="search" width="24" height="24">
+              <a href="#searchInput" id="nav-search-trigger" class="search-item border-0"
+                 aria-label="Search products">
+                <svg class="search" width="24" height="24" aria-hidden="true">
                   <use xlink:href="#search"></use>
                 </svg>
               </a>
@@ -757,6 +811,19 @@
   <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/checkout.js"></script>
+  <script>
+    // Nav search icon → scroll to and focus the live product-filter field.
+    // The #searchInput is already wired to the instant-filter pipeline in products.js.
+    document.getElementById('nav-search-trigger')?.addEventListener('click', function (e) {
+      e.preventDefault();
+      const field = document.getElementById('searchInput');
+      if (!field) return;
+      field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Small delay so the scroll finishes before focus (avoids jank on mobile)
+      setTimeout(() => field.focus(), 320);
+    });
+  </script>
 </body>
 
 </html>

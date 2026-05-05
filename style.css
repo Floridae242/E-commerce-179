@@ -2562,3 +2562,15 @@ body::after{
   color:var(--bs-primary,#ce071e);text-decoration:underline;cursor:pointer;
   font-size:inherit;
 }
+
+/* ── Checkout modal ──────────────────────────────────────── */
+.checkout-summary-label{
+  font-size:11px;font-family:var(--ed-mono,'IBM Plex Mono',monospace);
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ed-crimson,#c8351f);
+  font-weight:700;margin-bottom:6px;
+}
+.checkout-order-summary{
+  background:var(--ed-light,#f8f4ed);
+  border-left:3px solid var(--ed-crimson,#c8351f);
+  padding:12px 14px;
+}

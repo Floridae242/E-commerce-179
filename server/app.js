@@ -21,10 +21,25 @@ const path          = require('path');
 const productsRoute  = require('./routes/products');
 const authRoute      = require('./routes/auth');
 const registerRoute  = require('./routes/register');
+const checkoutRoute  = require('./routes/checkout');
 
 const app = express();
 
 // ── Global middleware ─────────────────────────────────────────────────────────
+
+// CORS — allow any localhost origin (Live Server, Vite, etc.) to call the API
+// during development. In production, replace with a strict allowlist.
+app.use((req, res, next) => {
+  const origin = req.headers.origin || '';
+  if (/^https?:\/\/localhost(:\d+)?$/.test(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  }
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
 
 // Parse JSON request bodies (not needed for GET-only routes but good practice
 // for when POST/PUT routes are added later).
@@ -49,6 +64,7 @@ app.use(express.static(path.resolve(__dirname, '..')));
 app.use('/api/products', productsRoute);
 app.use('/api/login',    authRoute);
 app.use('/api/register', registerRoute);
+app.use('/api/checkout', checkoutRoute);
 
 // ── 404 catch-all ─────────────────────────────────────────────────────────────
 // Must come AFTER all route mounts.

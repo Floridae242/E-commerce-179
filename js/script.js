@@ -77,13 +77,8 @@
     initChocolat();
     initTextFx();
 
-    $(".user-items .search-item").click(function () {
-      $(".search-box").toggleClass('active');
-      $(".search-box .search-input").focus();
-    });
-    $(".close-button").click(function () {
-      $(".search-box").toggleClass('active');
-    });
+    // .search-box overlay removed — nav search now focuses #searchInput directly
+    // (handled by the inline script at the bottom of index.html).
 
     var breakpoint = window.matchMedia('(max-width:61.93rem)');
 

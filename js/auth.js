@@ -105,7 +105,7 @@
       const password = loginForm.password.value;
 
       try {
-        const res  = await fetch('/api/login', {
+        const res  = await fetch((window.API_BASE || '') + '/api/login', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify({ email, password }),
@@ -154,7 +154,7 @@
       const confirmPassword = registerForm.confirmPassword.value;
 
       try {
-        const res  = await fetch('/api/register', {
+        const res  = await fetch((window.API_BASE || '') + '/api/register', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify({ firstName, email, password, confirmPassword }),
