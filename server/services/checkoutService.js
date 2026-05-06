@@ -1,16 +1,19 @@
 /**
  * services/checkoutService.js
  *
- * Handles all checkout business logic:
- *   1. Dynamically calculate the order total from cart items.
- *   2. Build a complete order record.
- *   3. Persist the order to data/json/orders.json inside a try…catch.
- *      If the write fails → throw SAVE_FAILED so the controller can return
- *      a 400 WITHOUT clearing the user's cart on the frontend.
- *   4. Return a safe order summary (last 4 of card only — full number is
- *      never stored or returned).
+ * Checkout business logic — now backed by SQLite (store.db).
+ * Replaces the previous loadOrders / saveOrders (full-file rewrite) approach.
  *
- * This layer knows nothing about HTTP — no req, no res, no status codes.
+ * What changed vs. the JSON version:
+ *   BEFORE: read orders.json → push → write entire file back (not atomic)
+ *   AFTER:  db.transaction() wraps the INSERT into orders + INSERT into
+ *           order_items as a single atomic unit — either both succeed or
+ *           neither does.  This is the "All-or-Nothing" critical path from
+ *           the course material.
+ *
+ * ERD mapping (Session 8 "Architecting the Schema"):
+ *   orders      → id, user_id(FK→users), email, card_last4, total, status, placed_at
+ *   order_items → id, order_id(FK→orders), product_id(FK→products), quantity, price
  *
  * Request lifecycle position:
  *   POST /api/checkout
@@ -18,99 +21,75 @@
  *     → [checkoutController]
  *     → [checkoutService ← YOU ARE HERE]
  *          ↓
- *     [data/json/orders.json]  (read → append → write)
+ *     [store.db → orders + order_items tables]
  */
 
-const fs   = require('fs');
-const path = require('path');
+const db = require('../db');
 
-const ORDERS_PATH = path.resolve(__dirname, '../../data/json/orders.json');
+// ── Prepared statements ────────────────────────────────────────────────────
+const findUserByEmail = db.prepare('SELECT id FROM users WHERE email = ?');
 
-// ── Private helpers ────────────────────────────────────────────────────────
+const insertOrder = db.prepare(`
+  INSERT INTO orders (user_id, email, card_last4, total, status, placed_at)
+  VALUES (?, ?, ?, ?, 'confirmed', ?)
+`);
 
-/**
- * loadOrders — reads and parses orders.json.
- * Returns an empty array if the file is missing or unparseable (graceful start).
- * @returns {Array<Object>}
- */
-function loadOrders() {
-  try {
-    const raw = fs.readFileSync(ORDERS_PATH, 'utf8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
+const insertOrderItem = db.prepare(`
+  INSERT INTO order_items (order_id, product_id, quantity, price)
+  VALUES (?, ?, ?, ?)
+`);
+
+// ── Atomic transaction ────────────────────────────────────────────────────
+// better-sqlite3 transactions run synchronously inside a single SQLite
+// write lock — if any statement throws, the whole transaction rolls back.
+const placeOrderTransaction = db.transaction((userId, email, cardLast4, total, placedAt, cart) => {
+  const orderInfo = insertOrder.run(userId, email, cardLast4, total, placedAt);
+  const orderId   = orderInfo.lastInsertRowid;
+
+  for (const item of cart) {
+    insertOrderItem.run(orderId, item.id, item.quantity, item.price);
   }
-}
 
-/**
- * saveOrders — serialises and writes the full order array back to disk.
- * @param {Array<Object>} orders
- */
-function saveOrders(orders) {
-  fs.writeFileSync(ORDERS_PATH, JSON.stringify(orders, null, 2), 'utf8');
-}
+  return orderId;
+});
 
 // ── Public API ─────────────────────────────────────────────────────────────
 
 /**
  * placeOrder
  *
- * Calculates the total, builds an order record, and persists it.
- * The full card number is NEVER stored — only the last 4 digits.
- *
- * @param {Array<{id:number,name:string,price:number,quantity:number}>} cart
- *   — already validated by the Gatekeeper middleware
- * @param {string} email      — already normalised (lowercase, trimmed)
- * @param {string} cardNumber — already normalised to 16 raw digits
- * @returns {Promise<{ order: { id, total, cardLast4, status, placedAt } }>}
- * @throws {Error} with code 'SAVE_FAILED' when the JSON file cannot be written
+ * @param {Array<{id,name,price,quantity}>} cart — validated by Gatekeeper
+ * @param {string} email      — normalised (lowercase, trimmed)
+ * @param {string} cardNumber — 16 raw digits; only last 4 stored
+ * @returns {{ order: { id, total, cardLast4, status, placedAt } }}
+ * @throws {Error} code 'SAVE_FAILED' — DB write failed (cart must NOT be cleared)
  */
 async function placeOrder(cart, email, cardNumber) {
-  // ── Step 1: calculate order total ─────────────────────────────────────────
-  // Each item carries its own price snapshot so the total is locked at the
-  // moment of purchase even if product prices change later.
+  // ── Step 1: calculate total ───────────────────────────────────────────────
   const total = parseFloat(
     cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)
   );
 
-  // ── Step 2: load existing orders and assign next ID ───────────────────────
-  const orders = loadOrders();
-  const nextId = orders.length > 0 ? Math.max(...orders.map((o) => o.id)) + 1 : 1;
+  // ── Step 2: resolve user_id (nullable — guests have no account) ───────────
+  const userRow = findUserByEmail.get(email);
+  const userId  = userRow ? userRow.id : null;
 
-  // ── Step 3: build order record ────────────────────────────────────────────
-  const order = {
-    id:        nextId,
-    email,
-    cardLast4: cardNumber.slice(-4),   // ONLY the last 4 digits — PCI DSS hygiene
-    cart:      cart.map(({ id, name, price, quantity }) => ({ id, name, price, quantity })),
-    total,
-    status:    'confirmed',
-    placedAt:  new Date().toISOString(),
-  };
+  const cardLast4 = cardNumber.slice(-4);
+  const placedAt  = new Date().toISOString();
 
-  // ── Step 4: try to persist ────────────────────────────────────────────────
-  // Wrapped in try…catch so that a write failure (disk full, permission error)
-  // propagates as a typed domain error — not a raw Node.js ENOENT/EACCES.
-  // The controller maps SAVE_FAILED → 400 so the frontend NEVER clears the cart.
-  orders.push(order);
+  // ── Step 3: atomic INSERT (orders header + all line items) ────────────────
+  let orderId;
   try {
-    saveOrders(orders);
-  } catch (ioErr) {
+    orderId = placeOrderTransaction(userId, email, cardLast4, total, placedAt, cart);
+  } catch (dbErr) {
     const err  = new Error('Failed to persist order.');
     err.code   = 'SAVE_FAILED';
-    err.cause  = ioErr;
+    err.cause  = dbErr;
     throw err;
   }
 
-  // ── Step 5: return safe summary ───────────────────────────────────────────
   return {
-    order: {
-      id:        order.id,
-      total:     order.total,
-      cardLast4: order.cardLast4,
-      status:    order.status,
-      placedAt:  order.placedAt,
-    },
+    order: { id: orderId, total, cardLast4, status: 'confirmed', placedAt },
   };
 }
 

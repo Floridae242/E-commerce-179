@@ -2,8 +2,13 @@
  * Catalog: data fetching, instant search, category filter, sort, and rendering.
  *
  * Globals exposed for compatibility with the rest of the template:
- *   - window.allProducts        Full product list (source of truth, never mutated after load).
+ *   - window.allProducts         Full product list (source of truth, never mutated after load).
  *   - window.renderProducts(arr) Renders an array of products into #product-grid.
+ *
+ * Data source (Session 8 migration):
+ *   BEFORE: fetch('./data/json/products.json') → raw array
+ *   AFTER:  fetch('/api/products') → { success, data: [...], meta: {...} }
+ *           Extracts json.data for backwards-compatible window.allProducts assignment.
  */
 
 // Source-of-truth dataset; assigned once, then read-only.
@@ -25,11 +30,14 @@ async function requestProducts() {
   errorDiv.style.display = 'none';
 
   try {
-    const response = await fetch('./data/json/products.json');
+    const response = await fetch((window.API_BASE || '') + '/api/products');
     if (!response.ok) {
-      throw new Error(`HTTP Error: ${response.status} - File not found`);
+      throw new Error(`HTTP Error: ${response.status}`);
     }
-    const products = await response.json();
+    const json = await response.json();
+
+    // API returns { success, data: [...], meta: {...} } — extract the array.
+    const products = json.data || [];
 
     window.allProducts = products;
 
