@@ -25,7 +25,7 @@
 
 const bcrypt = require('bcrypt');
 const jwt    = require('jsonwebtoken');
-const db     = require('../db');
+const db     = require('../../shared/db');
 
 // ── Configuration ──────────────────────────────────────────────────────────
 const JWT_SECRET     = process.env.JWT_SECRET     || 'stylish-dev-secret-change-me-in-prod';

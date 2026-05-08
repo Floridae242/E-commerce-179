@@ -19,7 +19,7 @@
  *                                                       [store.db → products table]
  */
 
-const db = require('../db');
+const db = require('../../shared/db');
 
 // ── Prepared statements (compiled once at module load, reused on every call) ──
 const selectAll = db.prepare('SELECT * FROM products');

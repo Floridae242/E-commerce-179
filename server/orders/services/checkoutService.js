@@ -24,7 +24,7 @@
  *     [store.db → orders + order_items tables]
  */
 
-const db = require('../db');
+const db = require('../../shared/db');
 
 // ── Prepared statements ────────────────────────────────────────────────────
 const findUserByEmail = db.prepare('SELECT id FROM users WHERE email = ?');

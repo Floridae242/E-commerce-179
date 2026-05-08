@@ -25,7 +25,8 @@ const path     = require('path');
 const fs       = require('fs');
 
 // ── Open database file ────────────────────────────────────────────────────────
-const DB_PATH = path.resolve(__dirname, '../data/store.db');
+// __dirname is server/shared/ — data/ sits two levels up at the project root
+const DB_PATH = path.resolve(__dirname, '../../data/store.db');
 
 const db = new Database(DB_PATH);
 
@@ -77,7 +78,7 @@ db.exec(`
 // ── One-time seed: users ──────────────────────────────────────────────────────
 const userCount = db.prepare('SELECT COUNT(*) AS n FROM users').get().n;
 if (userCount === 0) {
-  const USERS_JSON = path.resolve(__dirname, '../data/json/users.json');
+  const USERS_JSON = path.resolve(__dirname, '../../data/json/users.json');
   try {
     const users = JSON.parse(fs.readFileSync(USERS_JSON, 'utf8'));
     const insertUser = db.prepare(
@@ -98,7 +99,7 @@ if (userCount === 0) {
 // ── One-time seed: products ───────────────────────────────────────────────────
 const productCount = db.prepare('SELECT COUNT(*) AS n FROM products').get().n;
 if (productCount === 0) {
-  const PRODUCTS_JSON = path.resolve(__dirname, '../data/json/products.json');
+  const PRODUCTS_JSON = path.resolve(__dirname, '../../data/json/products.json');
   try {
     const products = JSON.parse(fs.readFileSync(PRODUCTS_JSON, 'utf8'));
     const insertProduct = db.prepare(

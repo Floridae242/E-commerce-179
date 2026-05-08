@@ -18,10 +18,11 @@
 
 const express       = require('express');
 const path          = require('path');
-const productsRoute  = require('./routes/products');
-const authRoute      = require('./routes/auth');
-const registerRoute  = require('./routes/register');
-const checkoutRoute  = require('./routes/checkout');
+// Domain-based route imports (Session 9 — Microservice folder structure)
+const productsRoute  = require('./catalog/routes/products');   // Catalog domain
+const authRoute      = require('./identity/routes/auth');       // Identity domain
+const registerRoute  = require('./identity/routes/register');   // Identity domain
+const checkoutRoute  = require('./orders/routes/checkout');     // Orders domain
 
 const app = express();
 

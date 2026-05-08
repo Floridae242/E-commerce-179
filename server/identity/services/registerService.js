@@ -20,7 +20,7 @@
  */
 
 const bcrypt = require('bcrypt');
-const db     = require('../db');
+const db     = require('../../shared/db');
 
 const SALT_ROUNDS = 12;
 
