@@ -18,6 +18,7 @@
 
 const express       = require('express');
 const path          = require('path');
+const { IS_PROD }   = require('./shared/config');
 // Domain-based route imports (Session 9 — Microservice folder structure)
 const productsRoute  = require('./catalog/routes/products');   // Catalog domain
 const authRoute      = require('./identity/routes/auth');       // Identity domain
@@ -42,9 +43,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// Parse JSON request bodies (not needed for GET-only routes but good practice
-// for when POST/PUT routes are added later).
-app.use(express.json());
+// Parse JSON request bodies — body size capped at 10kb so a malicious client
+// can't crash the server with a 1GB string (Audit slide 7: Input Gatekeeper).
+app.use(express.json({ limit: '10kb' }));
 
 // Simple request logger — replace with morgan or pino in production.
 app.use((req, _res, next) => {
@@ -74,12 +75,37 @@ app.use((_req, res) => {
 });
 
 // ── Global error handler ──────────────────────────────────────────────────────
-// Express recognises a 4-argument middleware as an error handler.
-// Any error passed to next(err) lands here.
+// "Two-Face" pattern (Audit slide 5):
+//   Internal → log the full error with stack trace for the developer.
+//   External → in production, send only a generic 500 so the stack trace
+//              isn't leaked to attackers. In development, return the detail
+//              to make debugging fast.
 // eslint-disable-next-line no-unused-vars
 app.use((err, _req, res, _next) => {
   console.error('[global error handler]', err);
-  res.status(500).json({ success: false, error: 'Internal server error.' });
+
+  // express.json() body-too-large maps to 413, not 500
+  if (err.type === 'entity.too.large') {
+    return res.status(413).json({
+      success: false,
+      error:   'Request body too large (max 10kb).',
+    });
+  }
+
+  const status = err.status || err.statusCode || 500;
+
+  if (IS_PROD) {
+    return res.status(status).json({
+      success: false,
+      error:   'Internal server error.',
+    });
+  }
+
+  return res.status(status).json({
+    success: false,
+    error:   err.message || 'Internal server error.',
+    stack:   err.stack,
+  });
 });
 
 module.exports = app;

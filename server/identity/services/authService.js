@@ -26,10 +26,7 @@
 const bcrypt = require('bcrypt');
 const jwt    = require('jsonwebtoken');
 const db     = require('../../shared/db');
-
-// ── Configuration ──────────────────────────────────────────────────────────
-const JWT_SECRET     = process.env.JWT_SECRET     || 'stylish-dev-secret-change-me-in-prod';
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '15m';
+const { JWT_SECRET, JWT_EXPIRES_IN } = require('../../shared/config');
 
 // ── Statements (prepared once, reused on every call) ──────────────────────
 const findUserByEmail = db.prepare('SELECT * FROM users WHERE email = ?');

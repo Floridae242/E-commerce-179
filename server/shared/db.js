@@ -23,11 +23,11 @@
 const Database = require('better-sqlite3');
 const path     = require('path');
 const fs       = require('fs');
+const { DB_PATH } = require('./config');
 
 // ── Open database file ────────────────────────────────────────────────────────
-// __dirname is server/shared/ — data/ sits two levels up at the project root
-const DB_PATH = path.resolve(__dirname, '../../data/store.db');
-
+// Path comes from .env (DB_PATH). Switching from SQLite to a cloud DB later
+// is now a one-line config change, not a code change.
 const db = new Database(DB_PATH);
 
 // Performance & integrity pragmas
